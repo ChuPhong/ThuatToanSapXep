@@ -1,67 +1,68 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
-void Swap(int *numberA, int *numberB)
+#define MIN 1
+#define MAX 100
+#define ARRAY_LENGTH 10
+
+void MakeArray(int list[], int length)
 {
-	int c = *numberA;
-	*numberA = *numberB;
-	*numberB = c;
+	srand((unsigned)time(0));
+	for (int i = 0; i < length; ++i)
+	{
+		list[i] = rand() % (MAX - MIN) + MIN;
+	}
 }
 
-void SelectionSort(int number[], int length)
+void Display(int list[], int length)
+{
+	for (int i = 0; i < length; ++i)
+	{
+		printf("%d\t", list[i]);
+	}
+	printf("\n");
+}
+
+void Swap(int *a, int *b)
+{
+	int c = *a;
+	*a = *b;
+	*b = c;
+}
+
+void SelectionSort(int list[], int length)
 {
 	for (int i = 0; i < length - 1; ++i)
 	{
 		int min = i;
 		for (int j = i + 1; j < length; ++j)
 		{
-			if (number[j] < number[min])
+			if (list[j] < list[min])
 			{
 				min = j;
 			}
 		}
-		Swap(&number[min], &number[i]);
-	}
-}
-
-void Output(int number[], int length)
-{
-	for (int i = 0; i < length; ++i)
-	{
-		printf("%d\t", number[i]);
-	}
-}
-
-void MakeArray(int number[], int length)
-{
-	srand(0);
-	for (int i = 0; i < length; ++i)
-	{
-		number[i] = rand() % 51 + 0;
+		Swap(&list[min], &list[i]);
 	}
 }
 
 int main()
 {
-	int number[10];
-	
-	// Tạo mảng ngẫu nhiên
-	MakeArray(number, 10);
+	int list[ARRAY_LENGTH];
 
-	// Trước khi sắp xếp
-	printf("Truoc khi sap xep:\t");
-	
-	Output(number, 10);
+	MakeArray(list, ARRAY_LENGTH);
 
-	// Sắp xếp
-	SelectionSort(number, 10);
+	printf("Truoc khi sap xep: ");
 
-	// Sau khi sắp xếp
-	printf("\nSau khi sap xep:\t");
-	
-	Output(number, 10);
+	Display(list, ARRAY_LENGTH);
 
-	// Dừng chương trình
+	printf("Sau khi sap xep: ");
+
+	SelectionSort(list, ARRAY_LENGTH);
+
+	Display(list, ARRAY_LENGTH);
+
 	getchar();
 
 	return 0;
